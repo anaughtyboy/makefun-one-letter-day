@@ -13,6 +13,13 @@ import { join } from "node:path";
 // The letter of the day.
 const letter = "N";
 
+// The gate only accepts one uppercase letter, A to Z, and nothing else.
+// Refuse to write anything if that ever stops being true, instead of
+// silently shipping a bad entry.
+if (!/^[A-Z]$/.test(letter)) {
+  throw new Error(`entry letter must be a single A-Z character, got: ${JSON.stringify(letter)}`);
+}
+
 // Where the grader looks for the entry.
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
 
